@@ -20,8 +20,8 @@ class DinoGame {
 	field CactusCluster cactus1;
 	field CactusCluster cactus2;
 	field CactusCluster cactus3;
-	field CactusCluster cactus4;
-	
+	field BoxObstacle box;
+
 	field Cloud cloud0;
 	field Cloud cloud1;
 	field Cloud cloud2;
@@ -49,8 +49,8 @@ class DinoGame {
 		let cactus1 = CactusCluster.new();
 		let cactus2 = CactusCluster.new();
 		let cactus3 = CactusCluster.new();
-		let cactus4 = CactusCluster.new();
-		
+		let box = BoxObstacle.new();
+
 		let cloud0 = Cloud.new(27);
 		let cloud1 = Cloud.new(512);
 		let cloud2 = Cloud.new(0);
@@ -98,7 +98,7 @@ class DinoGame {
 		do cactus1.dispose();
 		do cactus2.dispose();
 		do cactus3.dispose();
-		do cactus4.dispose();
+		do box.dispose();
 		
 		do Memory.deAlloc(this);
 		return;
@@ -163,17 +163,18 @@ class DinoGame {
 				do flying2.update();
 				do Pterodactyl.decrement_rightmost();
 				
-				do cactus0.update();
-				do cactus1.update();
-				do cactus2.update();
-				do cactus3.update();
-				do cactus4.update();
-				do CactusCluster.decrement_rightmost();
-				
-				do cloud0.update();
-				do cloud1.update();
-				do cloud2.update();
-				do Cloud.decrement_rightmost();
+					do cactus0.update();
+					do cactus1.update();
+					do cactus2.update();
+					do cactus3.update();
+					do box.update();
+					do CactusCluster.decrement_rightmost();
+					do BoxObstacle.decrement_rightmost();
+					
+					do cloud0.update();
+					do cloud1.update();
+					do cloud2.update();
+					do Cloud.decrement_rightmost();
 				
 				// check for collisions -> check each object individually for achievements
 				let player_tly = player.collision_box_tly();
@@ -204,9 +205,7 @@ class DinoGame {
 				if (cactus0.collision(player_tlx, player_tly, player_brx, player_bry) | 
 					cactus1.collision(player_tlx, player_tly, player_brx, player_bry) |
 					cactus2.collision(player_tlx, player_tly, player_brx, player_bry) |
-					cactus3.collision(player_tlx, player_tly, player_brx, player_bry) |
-					cactus4.collision(player_tlx, player_tly, player_brx, player_bry)
-					)
+					cactus3.collision(player_tlx, player_tly, player_brx, player_bry))
 					{
 						if (~(Achievements.complete(2))) {let crashed = true;}
 						else {
@@ -215,7 +214,7 @@ class DinoGame {
 							do cactus1.reset();
 							do cactus2.reset();
 							do cactus3.reset();
-							do cactus4.reset();
+							do box.reset();
 							
 							// achievement will clear lower
 							
@@ -223,6 +222,15 @@ class DinoGame {
 						}
 					}
 			
+				// AQUI ES LA ACCION CUANDO HAY UNA COLISSION  
+				// box collision: on hit, +50 points and reset box (VM parity)
+				if (box.collision(player_tlx, player_tly, player_brx, player_bry)) {
+					let score = score + 50;
+					do Output.moveCursor(1,7);
+					do Output.printInt(score);
+					do box.reset();
+				}
+
 				// check for cloud collision with just the head collision box
 				if (cloud0.collision(player_tlx, player_tly, player_brx, player_bry) | 
 					cloud1.collision(player_tlx, player_tly, player_brx, player_bry) |

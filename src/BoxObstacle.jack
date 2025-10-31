@@ -1,0 +1,152 @@
+class BoxObstacle {
+    // Field mappings to match VM "this" indices
+    // 0: height, 1: width, 2: location, 3: baseLeft, 4: phase (1 draw, -1 erase),
+    // 5: frame (1..), 6: xLeft, 7: yTop, 8: xRight, 9: yBottom
+    static int rightmost;
+    field int height;
+    field int width;
+    field int location;
+    field int baseLeft;
+    field int phase;
+    field int frame;
+    field int xLeft;
+    field int yTop;
+    field int xRight;
+    field int yBottom;
+
+    constructor BoxObstacle new() {
+        let this = Memory.alloc(10);
+        do BoxObstacle.reset();
+        if (rightmost = 0) {
+            let rightmost = 30;
+        }
+        return this;
+    }
+
+    function void decrement_rightmost() {
+        let rightmost = rightmost - 1;
+        if (rightmost < 30) { let rightmost = 29; }
+        return;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method int x() { // returns xRight, to match VM
+        return xRight;
+    }
+
+    method void update() {
+        if (xLeft > 30) {
+            let location = location - 1;
+            let xLeft = xLeft - 1;
+            let xRight = xRight - 1;
+            return;
+        }
+
+        // wipe previous column before drawing/erasing step
+        do Graphics.BoxEnd1(location);
+
+        if (phase = 1) {
+            if (frame = 1) {
+                do Graphics.drawBoxPos1(location);
+            } else {
+                if (frame = 2) {
+                    do Graphics.drawBoxPos2(location);
+                } else {
+                    if (frame = 3) {
+                        do Graphics.drawBoxPos3(location);
+                    } else {
+                        if (frame = 4) {
+                            do Graphics.drawBoxPos4(location);
+                        } else {
+                            if (frame = 5) {
+                                do Graphics.drawBoxPos5(location);
+                            } else {
+                                if (frame = 6) {
+                                    do Graphics.drawBoxPos6(location);
+                                } else {
+                                    if (frame = 7) {
+                                        do Graphics.drawBoxPos7(location);
+                                    } else {
+                                        if (frame = 8) {
+                                            let location = location - 1;
+                                            let xLeft = xLeft - 1;
+                                            let xRight = xRight - 1;
+                                            do Graphics.drawBoxPos8(location);
+                                            let frame = 0;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            if (phase = -1) {
+                if (frame = 1) {
+                    do Graphics.BoxEnd1(location);
+                } else {
+                    if (frame = 2) {
+                        do Graphics.BoxEnd2(location);
+                    } else {
+                        if (frame = 3) {
+                            do Graphics.BoxEnd3(location);
+                        } else {
+                            if (frame = 4) {
+                                do Graphics.BoxEnd4(location);
+                            } else {
+                                if (frame = 5) {
+                                    do Graphics.BoxEnd5(location);
+                                } else {
+                                    if (frame = 6) {
+                                        do Graphics.BoxEnd6(location);
+                                        let frame = 0;
+                                        do BoxObstacle.reset();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // if reached the baseLeft boundary while drawing (phase > 0), toggle to erasing
+        if ((location = baseLeft) & (phase > 0)) {
+            let frame = 0;
+            let xRight = 0;
+            let phase = -phase;
+        }
+
+        let frame = frame + 1;
+        return;
+    }
+
+    method void reset() {
+        let height = 21;
+        let width = 1;
+        let yTop = 244 - height;
+        let xLeft = rightmost + LCGRandom.randRange(20, 400);
+        let rightmost = xLeft;
+        let yBottom = 244;
+        let xRight = xLeft + width;
+        let baseLeft = 7808 - Math.multiply(height, 32);
+        let location = baseLeft + xLeft;
+        let frame = 0;
+        let phase = 1;
+        return;
+    }
+
+    method boolean collision(int left, int top, int right, int bottom) {
+        // small VM quirk: if xRight == 4, set it to 3
+        if (xRight = 4) { let xRight = 3; }
+
+        if ((xLeft > right) | (left > xRight)) { return false; }
+        if ((yTop > bottom) | (top > yBottom)) { return false; }
+        return true;
+    }
+}
