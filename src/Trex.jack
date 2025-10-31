@@ -4,8 +4,8 @@
 
 /** Implements the jumping dinosaur that is not supposed to collide with obstacles */
 class Trex {
-	static int _gravity;
-	static int _jump_velocity;
+	static int gravity;
+	static int jumpVelocity;
 	
 	field int location;
 	field int initial_location;
@@ -15,6 +15,9 @@ class Trex {
 	field int clock;
 	field int height;
 	field int initial_height;
+
+	field boolean immortal; //0 if not immortal, desde funcion se pone =1 si toma alguna caja
+	field int immortalFrames; //Time is measured by frames
 	
 	field int glitching;
 	
@@ -22,8 +25,8 @@ class Trex {
 		/*
 		Given screen starting position (defaults to 7300 if 0), constructs a Trex, draws it, and implements movement with update
 		*/
-		let _gravity = 3;
-		let _jump_velocity = -30;
+	let gravity = 3;
+	let jumpVelocity = -30;
 		let glitching = -1;
 		
 		let location = pos;
@@ -35,6 +38,10 @@ class Trex {
 		let feet_pos = true;
 		let crouch_state = 0;
 		let clock = 0;
+		//Value asign to immortal.
+		let immortal = false;
+		let immortalFrames = 0;
+
 		do Graphics.drawStand(location);
 		return this;
 	}
@@ -43,14 +50,14 @@ class Trex {
 		do Memory.deAlloc(this);
 		return;
 	}
-	function void set_physics(int gravity, int jump_velocity) {
-		let _gravity = gravity;
-		let _jump_velocity = jump_velocity;
+	function void set_physics(int g, int jv) {
+		let gravity = g;
+		let jumpVelocity = jv;
 		return;
 	}
 	function void update_jump(int change) {
-		let _jump_velocity = _jump_velocity - (change + change + change + change + change); // jump - 5 * change
-		if ((_jump_velocity < (-45)) | (_jump_velocity > (-15))) {let _jump_velocity = -30;} // reset jump velocity if it is out of bounds
+		let jumpVelocity = jumpVelocity - (change + change + change + change + change); // jump - 5 * change
+		if ((jumpVelocity < (-45)) | (jumpVelocity > (-15))) {let jumpVelocity = -30;} // reset jump velocity if it is out of bounds
 		return;
 	}
 	method void set_velocity(int vel) {
@@ -58,7 +65,14 @@ class Trex {
 		return;
 	}
 	method int update() {
-		 
+		 if (immortal) {
+			if (immortalFrames > 0) {
+				let immortalFrames = immortalFrames - 1;
+			} else {
+				let immortal = false; //immortalFrames quedará con valor de 0, o sea, se acabó el tiempo
+			}
+
+		 }
 		// check for glitching
 		if (glitching = 0) {let crouch_state = 5;} // turn off crouching if has been glitching for long enough
 		let glitching = glitching - 1;
@@ -72,7 +86,7 @@ class Trex {
 			if (clock = 3) {let clock = 0;} // only update gravity every third cycle
 			else {let clock = clock + 1; return -1;}
 				
-			let downVelocity = downVelocity + _gravity;
+			let downVelocity = downVelocity + gravity;
 			let location = location + (32 * downVelocity);
 			let height = height + downVelocity;
 			// Don't fall below ground level, but when reach ground, reset downVelocity
@@ -114,7 +128,7 @@ class Trex {
 					let crouch_state = 3; // crouching this clock cycle
 				}
 				else { if (crouch_state = 1) { // crouch_state = 1, so just begining to crouch and must handle jump condition
-					// (downVelocity > (_gravity)) | (downVelocity < -(_gravity)) if want margin for entering glitch
+					// (downVelocity > (gravity)) | (downVelocity < -(gravity)) if want margin for entering glitch
 					// otherwise if (downVelocity) for only glitch at peak of jump
 					if (downVelocity){
 						// wipe the jumping part
@@ -181,7 +195,7 @@ class Trex {
 	method int jump() {
 		// only jump if on the ground 
 		if (location = initial_location) {
-			let downVelocity = _jump_velocity;
+			let downVelocity = jumpVelocity;
 			return 5;
 		}
 		return -1;
@@ -190,4 +204,16 @@ class Trex {
 	method int collision_box_tly() {
 		return height;
 	}
+
+	//Inmortality
+	method void becomeImmortal(int seconds){
+		let immortalFrames = seconds * 60; //Assuming that FPS=60
+		let immortal = true;
+		return;
+	}
+
+	method boolean isImmortal(){
+		return immortal;
+	}
+
 }
