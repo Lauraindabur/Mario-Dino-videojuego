@@ -15,8 +15,7 @@ class BoxObstacle {
     field int yBottom;
 
     constructor BoxObstacle new() {
-        let this = Memory.alloc(10);
-        do BoxObstacle.reset();
+        do this.reset();
         if (rightmost = 0) {
             let rightmost = 30;
         }
@@ -105,7 +104,7 @@ class BoxObstacle {
                                     if (frame = 6) {
                                         do Graphics.BoxEnd6(location);
                                         let frame = 0;
-                                        do BoxObstacle.reset();
+                                        do this.reset();
                                     }
                                 }
                             }
