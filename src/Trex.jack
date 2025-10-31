@@ -217,3 +217,5 @@ class Trex {
 	}
 
 }
+//Lógica: cuando se implementen cajitas, que dino detecte cuando la toque, y que
+llame a become immortal, en int seconds le pasamos 5, por ejemplo, no sé, y ya.
