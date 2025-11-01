@@ -9,7 +9,7 @@ Entre los principales avances se incluyen:
 - Se añadieron **cajas sorpresa** representativas del universo de Mario.  
 - Se mejoraron **acciones positivas y negativas**:
   - 🟥 **Negativas:** al tocar un arbusto o un pterodáctilo, el jugador **muere** y reinicia la partida. Además cuando se salta en el pterodáctilo no muere, y puede seguir en la partida
-  - 🟩 **Positivas:** al tocar una **caja sorpresa** (que aparece de forma aleatoria en el camino), el jugador obtiene **5 segundos de invulnerabilidad** frente a los obstáculos.
+  - 🟩 **Positivas:** al tocar una **caja sorpresa** (que aparece de forma aleatoria en el camino), el jugador obtiene **7 segundos de invulnerabilidad** frente a los obstáculos.
 
 
 
