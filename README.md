@@ -11,5 +11,6 @@ Entre los principales avances se incluyen:
   - 🟥 **Negativas:** al tocar un arbusto o un pterodáctilo, el jugador **muere** y reinicia la partida. Además cuando se salta en el pterodáctilo no muere, y puede seguir en la partida
   - 🟩 **Positivas:** al tocar una **caja sorpresa** (que aparece de forma aleatoria en el camino), el jugador obtiene **7 segundos de invulnerabilidad** frente a los obstáculos.
 
+<img width="775" height="438" alt="image" src="https://github.com/user-attachments/assets/c0ffed49-f9ed-4920-b45c-fede9a209b2f" />
 
 
