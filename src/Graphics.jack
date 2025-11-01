@@ -1,45 +1,8 @@
 class Graphics {
+	static int lastMarioLocation; // remember last drawn Mario baseline (word offset)
 	function int drawStandHead(int location) {
-		// returns the memory address of the bottommost drawing edge of the head
-		// height = 16
-		var int memAddress; 
-		// Head
-		let memAddress = 16384+location;
-		do Memory.poke(memAddress+0, 4088);
-		do Memory.poke(memAddress+32, 8188);
-		do Memory.poke(memAddress+64, -1);
-		do Memory.poke(memAddress+96, -113);
-		do Memory.poke(memAddress+128, -113);
-		do Memory.poke(memAddress+160, -1);
-		do Memory.poke(memAddress+192, -1);
-		do Memory.poke(memAddress+224, -1);
-		do Memory.poke(memAddress+256, -1);
-		do Memory.poke(memAddress+288, -1);
-		do Memory.poke(memAddress+320, -1);
-		do Memory.poke(memAddress+352, -1);
-		do Memory.poke(memAddress+384, -1);
-		do Memory.poke(memAddress+416, -1);
-		do Memory.poke(memAddress+448, 31);
-		do Memory.poke(memAddress+480, 15);
-		
-		// Back neck
-		// height = 14
-		let memAddress = memAddress - 1; // shift a block to the left
-		do Memory.poke(memAddress+64, ~32767);
-		do Memory.poke(memAddress+96, -16384);
-		do Memory.poke(memAddress+128, -16384);
-		do Memory.poke(memAddress+160, -8192);
-		do Memory.poke(memAddress+192, -8192);
-		do Memory.poke(memAddress+224, -8192);
-		do Memory.poke(memAddress+256, -4096);
-		do Memory.poke(memAddress+288, -4096);
-		do Memory.poke(memAddress+320, -2048);
-		do Memory.poke(memAddress+352, -1024);
-		do Memory.poke(memAddress+384, -1024);
-		do Memory.poke(memAddress+416, -512);
-		do Memory.poke(memAddress+448, -256);
-		do Memory.poke(memAddress+480, -256);
-		return memAddress + 481; // memAddress + 480 is location for head, but we subtracted 1 from memAddress for the neck
+		// Stubbed: no head drawing (Mario-only jump mode). Return 0 edge.
+		return 0;
 	}
 	function void eraseStandHead(int location) {
 		// returns the memory address of the bottommost drawing edge of the head
@@ -64,25 +27,33 @@ class Graphics {
 		do Memory.poke(memAddress+448, 0);
 		do Memory.poke(memAddress+480, 0);
 		
-		// Back neck
-		// height = 14
-		let memAddress = memAddress - 1; // shift a block to the left
-		do Memory.poke(memAddress+64, 0);
-		do Memory.poke(memAddress+96, 0);
-		do Memory.poke(memAddress+128, 0);
-		do Memory.poke(memAddress+160, 0);
-		do Memory.poke(memAddress+192, 0);
-		do Memory.poke(memAddress+224, 0);
-		do Memory.poke(memAddress+256, 0);
-		do Memory.poke(memAddress+288, 0);
-		do Memory.poke(memAddress+320, 0);
-		do Memory.poke(memAddress+352, 0);
-		do Memory.poke(memAddress+384, 0);
-		do Memory.poke(memAddress+416, 0);
-		do Memory.poke(memAddress+448, 0);
-		do Memory.poke(memAddress+480, 0);
+		// Stubbed: no-op for eraseStandHead in Mario-only mode
 		return;
 	}
+
+	// Mario: additional frame helpers
+	function int drawMarioFeet1(int location) {
+		var int memAddress;
+		let memAddress = 16384+location;
+		// Simplified feet frame 1: only the bottom 2 rows to create a subtle foot step
+		// column 0 (bottom-most words)
+		do Memory.poke(memAddress +448, 96);
+		do Memory.poke(memAddress +480, 48);
+		// column 1 (bottom-most words)
+		do Memory.poke(memAddress +449, 16);
+		do Memory.poke(memAddress +481, 32);
+		return memAddress + 480;
+	}
+	function void drawMarioFeet2(int location) {
+ 		// Stubbed: feet removed in Mario-only mode
+ 		return;
+	}
+	function void drawMarioCrouch(int location) {
+		// single crouch frame - currently same as standing sprite; replace with crouch-specific pokes when available
+		do Graphics.drawMarioSprite(location);
+		return;
+	}
+
 	
 	function void drawCrouchHead(int location) {
 		var int memAddress; 
@@ -126,47 +97,12 @@ class Graphics {
 	}
 	
 	function int drawFeet1(int location) {
-		// returns the memory address of the bottommost drawing edge of the feet
-		// height = 16
-		var int memAddress; 
-		let memAddress = 16384+location;
-		do Memory.poke(memAddress+0, -64);
-		do Memory.poke(memAddress+32, -15);
-		do Memory.poke(memAddress+64, -7);
-		do Memory.poke(memAddress+96, -1);
-		do Memory.poke(memAddress+128, -1);
-		do Memory.poke(memAddress+160, -1);
-		do Memory.poke(memAddress+192, -1);
-		do Memory.poke(memAddress+224, -385);
-		do Memory.poke(memAddress+256, -386);
-		do Memory.poke(memAddress+288, 30782);
-		do Memory.poke(memAddress+320, 30780);
-		do Memory.poke(memAddress+352, 30776);
-		do Memory.poke(memAddress+384, 14392);
-		do Memory.poke(memAddress+416, 12316);
-		do Memory.poke(memAddress+448, -4066);
-		do Memory.poke(memAddress+480, -4082);
-		return memAddress + 480;
+		// Redirect to Mario feet frame 1 (keeps Trex.swap_feet behavior)
+		return Graphics.drawMarioFeet1(location);
 	}
 	function void drawFeet2(int location) {
-		var int memAddress; 
-		let memAddress = 16384+location;
-		do Memory.poke(memAddress+0, -64);
-		do Memory.poke(memAddress+32, -15);
-		do Memory.poke(memAddress+64, -7);
-		do Memory.poke(memAddress+96, -1);
-		do Memory.poke(memAddress+128, -1);
-		do Memory.poke(memAddress+160, -1);
-		do Memory.poke(memAddress+192, -1);
-		do Memory.poke(memAddress+224, 31871);
-		do Memory.poke(memAddress+256, 15486);
-		do Memory.poke(memAddress+288, 15420);
-		do Memory.poke(memAddress+320, 6200);
-		do Memory.poke(memAddress+352, 30776);
-		do Memory.poke(memAddress+384, -3976);
-		do Memory.poke(memAddress+416, -16160);
-		do Memory.poke(memAddress+448, 448);
-		do Memory.poke(memAddress+480, 384);
+		// Redirect to Mario feet frame 2 (keeps Trex.swap_feet behavior)
+		do Graphics.drawMarioFeet2(location);
 		return;
 	}
 	function void eraseFeet(int location) {
@@ -195,137 +131,178 @@ class Graphics {
 		// height = 10
 		var int memAddress; 
 		let memAddress = 16384+location;
-		do Memory.poke(memAddress+0, 896);
-		do Memory.poke(memAddress+32, 3840);
-		do Memory.poke(memAddress+64, 7936);
-		do Memory.poke(memAddress+96, 15872);
-		do Memory.poke(memAddress+128, -512);
-		do Memory.poke(memAddress+160, -512);
-		do Memory.poke(memAddress+192, -2048);
-		do Memory.poke(memAddress+224, -4096);
-		do Memory.poke(memAddress+256, -8192);
-		do Memory.poke(memAddress+288, -16384);
-		return memAddress + 288;
+		// Stubbed: tail removed in Mario-only mode
+		return 0;
 	}
 	function void eraseTail(int location) {
-		var int memAddress; 
-		let memAddress = 16384+location;
-		do Memory.poke(memAddress+0, 0);
-		do Memory.poke(memAddress+32, 0);
-		do Memory.poke(memAddress+64, 0);
-		do Memory.poke(memAddress+96, 0);
-		do Memory.poke(memAddress+128, 0);
-		do Memory.poke(memAddress+160, 0);
-		do Memory.poke(memAddress+192, 0);
-		do Memory.poke(memAddress+224, 0);
-		do Memory.poke(memAddress+256, 0);
-		do Memory.poke(memAddress+288, 0);
+		// Stubbed: no tail to erase in Mario-only mode
 		return;
 	}
 	
 	function void drawStand(int location) {
-		do Graphics.drawStandHead(location - 512 + 1);
-		do Graphics.drawFeet1(location);
-		do Graphics.drawTail(location - 1);
+		// Stubbed: no standing draw in Mario-only mode (only jump)
 		return;
 	}
 	function void eraseStand(int location) {
-		do Graphics.eraseStandHead(location - 511);
-		do Graphics.eraseFeet(location);
-		do Graphics.eraseTail(location - 1);
+		// Stubbed: no-op
 		return;
 	}
-	function void drawJump(int location, int change_in_location) {
-		var int head_edge, body_edge, tail_edge, change_in_screen_addr;
-		
-		// same as drawStand, but wipes the part of the screen between location and previous location
-		let head_edge = Graphics.drawStandHead(location - 512 + 1);
-		let body_edge =  Graphics.drawFeet1(location);
-		let tail_edge = Graphics.drawTail(location - 1);
-		
-		
-		// wipe below, if player went upward with a negative change_in_location
-		while (change_in_location < 0) {
-			let change_in_location = change_in_location + 1;
-			let change_in_screen_addr = change_in_location * 32;
-			do Memory.poke(head_edge - (change_in_screen_addr), 0);
-			do Memory.poke(body_edge - (change_in_screen_addr), 0);
-			do Memory.poke(tail_edge - (change_in_screen_addr), 0);
-			
-		}
-		if (change_in_location > 0) {
-			// set the edge locations to be the top edges using the heights defined in the draw functions
-			let head_edge = head_edge - (16 * 32);  // head height = 16
-			let body_edge = body_edge - (30 * 32);  // feet height = 16 and neck height = 14
-			let tail_edge = tail_edge - (10 * 32);  // tail height = 10
-			
-			// wipe above, if player went downward with a positive change_in_location
-			while (change_in_location > 0) {
-				let change_in_location = change_in_location - 1;
-				let change_in_screen_addr = change_in_location * 32;
-				do Memory.poke(head_edge - (change_in_screen_addr), 0);
-				do Memory.poke(body_edge - (change_in_screen_addr), 0);
-				do Memory.poke(tail_edge - (change_in_screen_addr), 0);
-				
+		function void drawJump(int location, int change_in_location) {
+			var int oldLast;
+
+			// Save previous last-drawn baseline
+			let oldLast = Graphics.lastMarioLocation;
+
+			// Set the last location to the new location so drawMarioSprite
+			// won't attempt to erase it prematurely.
+			let Graphics.lastMarioLocation = location;
+
+			// Draw Mario at the new baseline first
+			do Graphics.drawMarioSprite(location);
+
+			// If there was a previous valid location and it's different, erase it now
+			if ((oldLast != 0) & (oldLast != location)) {
+				do Graphics.eraseMarioSprite(oldLast);
+				// In case the erase overlapped the newly drawn sprite (vertical overlap),
+				// redraw the new baseline to ensure no visual gap.
+				do Graphics.drawMarioSprite(location);
 			}
+
+			return;
 		}
+
+
+	// Mario sprite drawing (single-sprite replacement for T-Rex parts)
+	function int drawMarioSprite(int location) {
+		var int memAddress; 
+		// baseline: use the same baseline as feet used to be (location)
+		let memAddress = 16384+location;
+		// If we previously drew Mario somewhere else, erase it first.
+		// Only erase a previous Mario if we have a valid previous location
+		// and it's different from the location we're about to draw.
+		if ((Graphics.lastMarioLocation != 0) & (Graphics.lastMarioLocation != location)) {
+			do Graphics.eraseMarioSprite(Graphics.lastMarioLocation);
+		}
+		// column 0
+		do Memory.poke(memAddress, 32640);
+		do Memory.poke(memAddress +32, -128);
+		do Memory.poke(memAddress +64, -32);
+		do Memory.poke(memAddress +96, 25056);
+		do Memory.poke(memAddress +128, 24952);
+		do Memory.poke(memAddress +160, 24840);
+		do Memory.poke(memAddress +192, -30872);
+		do Memory.poke(memAddress +224, -32760);
+		do Memory.poke(memAddress +256, -32520);
+		do Memory.poke(memAddress +288, 128);
+		do Memory.poke(memAddress +320, 128);
+		do Memory.poke(memAddress +352, -128);
+		do Memory.poke(memAddress +384, -128);
+		do Memory.poke(memAddress +416, 192);
+		do Memory.poke(memAddress +448, 96);
+		do Memory.poke(memAddress +480, 48);
+		do Memory.poke(memAddress +512, 24);
+		do Memory.poke(memAddress +544, 104);
+		do Memory.poke(memAddress +576, 136);
+		do Memory.poke(memAddress +608, 72);
+		do Memory.poke(memAddress +640, 31864);
+		do Memory.poke(memAddress +672, -32192);
+		do Memory.poke(memAddress +704, 448);
+		do Memory.poke(memAddress +736, 248);
+		do Memory.poke(memAddress +768, 136);
+		do Memory.poke(memAddress +800, 248);
+		// column 1
+		do Memory.poke(memAddress +33, 31);
+		do Memory.poke(memAddress +65, 31);
+		do Memory.poke(memAddress +97, 2);
+		do Memory.poke(memAddress +129, 2);
+		do Memory.poke(memAddress +161, 30);
+		do Memory.poke(memAddress +193, 48);
+		do Memory.poke(memAddress +225, 48);
+		do Memory.poke(memAddress +257, 31);
+		do Memory.poke(memAddress +289, 8);
+		do Memory.poke(memAddress +321, 8);
+		do Memory.poke(memAddress +353, 15);
+		do Memory.poke(memAddress +385, 3);
+		do Memory.poke(memAddress +417, 30);
+		do Memory.poke(memAddress +449, 16);
+		do Memory.poke(memAddress +481, 32);
+		do Memory.poke(memAddress +513, 32);
+		do Memory.poke(memAddress +545, 62);
+		do Memory.poke(memAddress +577, 34);
+		do Memory.poke(memAddress +609, 36);
+		do Memory.poke(memAddress +641, 60);
+		do Memory.poke(memAddress +673, 4);
+		do Memory.poke(memAddress +705, 7);
+		do Memory.poke(memAddress +737, 62);
+		do Memory.poke(memAddress +769, 34);
+		do Memory.poke(memAddress +801, 62);
+		// remember where we drew Mario this frame
+		let Graphics.lastMarioLocation = location;
+		return memAddress + 801;
+	}
+	function void eraseMarioSprite(int location) {
+		var int memAddress; 
+		let memAddress = 16384+location;
+		// column 0 (erase)
+		do Memory.poke(memAddress, 0);
+		do Memory.poke(memAddress +32, 0);
+		do Memory.poke(memAddress +64, 0);
+		do Memory.poke(memAddress +96, 0);
+		do Memory.poke(memAddress +128, 0);
+		do Memory.poke(memAddress +160, 0);
+		do Memory.poke(memAddress +192, 0);
+		do Memory.poke(memAddress +224, 0);
+		do Memory.poke(memAddress +256, 0);
+		do Memory.poke(memAddress +288, 0);
+		do Memory.poke(memAddress +320, 0);
+		do Memory.poke(memAddress +352, 0);
+		do Memory.poke(memAddress +384, 0);
+		do Memory.poke(memAddress +416, 0);
+		do Memory.poke(memAddress +448, 0);
+		do Memory.poke(memAddress +480, 0);
+		do Memory.poke(memAddress +512, 0);
+		do Memory.poke(memAddress +544, 0);
+		do Memory.poke(memAddress +576, 0);
+		do Memory.poke(memAddress +608, 0);
+		do Memory.poke(memAddress +640, 0);
+		do Memory.poke(memAddress +672, 0);
+		do Memory.poke(memAddress +704, 0);
+		do Memory.poke(memAddress +736, 0);
+		do Memory.poke(memAddress +768, 0);
+		do Memory.poke(memAddress +800, 0);
+		// column 1 (erase)
+		do Memory.poke(memAddress +33, 0);
+		do Memory.poke(memAddress +65, 0);
+		do Memory.poke(memAddress +97, 0);
+		do Memory.poke(memAddress +129, 0);
+		do Memory.poke(memAddress +161, 0);
+		do Memory.poke(memAddress +193, 0);
+		do Memory.poke(memAddress +225, 0);
+		do Memory.poke(memAddress +257, 0);
+		do Memory.poke(memAddress +289, 0);
+		do Memory.poke(memAddress +321, 0);
+		do Memory.poke(memAddress +353, 0);
+		do Memory.poke(memAddress +385, 0);
+		do Memory.poke(memAddress +417, 0);
+		do Memory.poke(memAddress +449, 0);
+		do Memory.poke(memAddress +481, 0);
+		do Memory.poke(memAddress +513, 0);
+		do Memory.poke(memAddress +545, 0);
+		do Memory.poke(memAddress +577, 0);
+		do Memory.poke(memAddress +609, 0);
+		do Memory.poke(memAddress +641, 0);
+		do Memory.poke(memAddress +673, 0);
+		do Memory.poke(memAddress +705, 0);
+		do Memory.poke(memAddress +737, 0);
+		do Memory.poke(memAddress +769, 0);
+		do Memory.poke(memAddress +801, 0);
 		return;
 	}
 	function void drawCrouch(int location) {
-		do Graphics.drawCrouchHead(location + 1);
-		do Graphics.drawFeet1(location);
-		do Graphics.drawTail(location - 1);
+		// Stubbed: crouch removed in Mario-only mode
 		return;
 	}
-	function void erasePtyr(int location) {
-		var int memAddress; 
-		let memAddress = 16384+location;
-		// column 0
-		do Memory.poke(memAddress +224, 0);
-		do Memory.poke(memAddress +256, 0);
-		do Memory.poke(memAddress +288, 0);
-		do Memory.poke(memAddress +320, 0);
-		do Memory.poke(memAddress +352, 0);
-		do Memory.poke(memAddress +384, 0);
-		do Memory.poke(memAddress, 0);
-		do Memory.poke(memAddress +32, 0);
-		do Memory.poke(memAddress +64, 0);
-		do Memory.poke(memAddress +96, 0);
-		do Memory.poke(memAddress +128, 0);
-		do Memory.poke(memAddress +160, 0);
-		do Memory.poke(memAddress +192, 0);
-		// column -1
-		do Memory.poke(memAddress -1, 0);
-		do Memory.poke(memAddress +31, 0);
-		do Memory.poke(memAddress +63, 0);
-		do Memory.poke(memAddress +95, 0);
-		do Memory.poke(memAddress +127, 0);
-		do Memory.poke(memAddress +159, 0);
-		do Memory.poke(memAddress +191, 0);
-		do Memory.poke(memAddress +223, 0);
-		do Memory.poke(memAddress +255, 0);
-		do Memory.poke(memAddress +287, 0);
-		do Memory.poke(memAddress +319, 0);
-		do Memory.poke(memAddress +351, 0);
-		do Memory.poke(memAddress +383, 0);
-		// column 1
-		let memAddress = memAddress + 1;
-		do Memory.poke(memAddress +224, 0);
-		do Memory.poke(memAddress +256, 0);
-		do Memory.poke(memAddress +288, 0);
-		do Memory.poke(memAddress +320, 0);
-		do Memory.poke(memAddress +352, 0);
-		do Memory.poke(memAddress +384, 0);
-		do Memory.poke(memAddress, 0);
-		do Memory.poke(memAddress +32, 0);
-		do Memory.poke(memAddress +64, 0);
-		do Memory.poke(memAddress +96, 0);
-		do Memory.poke(memAddress +128, 0);
-		do Memory.poke(memAddress +160, 0);
-		do Memory.poke(memAddress +192, 0);
-		return;
-	}
-	
+
 	function void drawPtyrPos0(int location) {
 		var int memAddress; 
 		let memAddress = 16384+location;

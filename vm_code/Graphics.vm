@@ -1,4 +1,345 @@
-function Graphics.drawStandHead 1
+function Graphics.drawMarioSprite 1
+push constant 16384
+push argument 0
+add
+pop local 0
+// Only erase previous Mario if static 0 is non-zero and different from arg0
+push static 0
+push constant 0
+eq
+if-goto SKIP_ERASE_MARIO
+push static 0
+push argument 0
+eq
+if-goto SKIP_ERASE_MARIO
+push static 0
+call Graphics.eraseMarioSprite 1
+pop temp 0
+label SKIP_ERASE_MARIO
+push local 0
+push constant 0
+add
+push constant 32640
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+push constant 128
+neg
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 64
+add
+push constant 32
+neg
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 96
+add
+push constant 25056
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 128
+add
+push constant 24952
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 160
+add
+push constant 24840
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 192
+add
+push constant 30872
+neg
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 224
+add
+push constant 32760
+neg
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 256
+add
+push constant 32520
+neg
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 288
+add
+push constant 128
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 320
+add
+push constant 128
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 352
+add
+push constant 128
+neg
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 384
+add
+push constant 128
+neg
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 416
+add
+push constant 192
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 448
+add
+push constant 96
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 480
+add
+push constant 48
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 512
+add
+push constant 24
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 544
+add
+push constant 104
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 576
+add
+push constant 136
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 608
+add
+push constant 72
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 640
+add
+push constant 31864
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 672
+add
+push constant 32192
+neg
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 704
+add
+push constant 448
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 736
+add
+push constant 248
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 768
+add
+push constant 136
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 800
+add
+push constant 248
+call Memory.poke 2
+pop temp 0
+
+push local 0
+push constant 33
+add
+push constant 31
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 65
+add
+push constant 31
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 97
+add
+push constant 2
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 129
+add
+push constant 2
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 161
+add
+push constant 30
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 193
+add
+push constant 48
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 225
+add
+push constant 48
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 257
+add
+push constant 31
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 289
+add
+push constant 8
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 321
+add
+push constant 8
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 353
+add
+push constant 15
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 385
+add
+push constant 3
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 417
+add
+push constant 30
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 449
+add
+push constant 16
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 481
+add
+push constant 32
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 513
+add
+push constant 32
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 545
+add
+push constant 62
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 577
+add
+push constant 34
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 609
+add
+push constant 36
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 641
+add
+push constant 60
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 673
+add
+push constant 4
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 705
+add
+push constant 7
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 737
+add
+push constant 62
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 769
+add
+push constant 34
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 801
+add
+push constant 62
+call Memory.poke 2
+pop temp 0
+// update lastMarioLocation (static 0) to the new location (argument 0)
+push argument 0
+pop static 0
+push local 0
+push constant 801
+add
+return
+
+function Graphics.eraseMarioSprite 1
 push constant 16384
 push argument 0
 add
@@ -6,19 +347,403 @@ pop local 0
 push local 0
 push constant 0
 add
-push constant 4088
+push constant 0
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 32
 add
-push constant 8188
+push constant 0
 call Memory.poke 2
 pop temp 0
 push local 0
 push constant 64
 add
-push constant 1
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 96
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 128
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 160
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 192
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 224
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 256
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 288
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 320
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 352
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 384
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 416
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 448
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 480
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 512
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 544
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 576
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 608
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 640
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 672
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 704
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 736
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 768
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 800
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+
+push local 0
+push constant 33
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 65
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 97
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 129
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 161
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 193
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 225
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 257
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 289
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 321
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 353
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 385
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 417
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 449
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 481
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 513
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 545
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 577
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 609
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 641
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 673
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 705
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 737
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 769
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 801
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 0
+return
+
+function Graphics.drawMarioFeet1 1
+push constant 16384
+push argument 0
+add
+pop local 0
+push local 0
+push constant 448
+add
+push constant 96
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 480
+add
+push constant 48
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 449
+add
+push constant 16
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 481
+add
+push constant 32
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 480
+add
+return
+
+function Graphics.drawMarioFeet2 1
+push constant 16384
+push argument 0
+add
+pop local 0
+push local 0
+push constant 416
+add
+push constant 12316
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 448
+add
+push constant 4066
+neg
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 480
+add
+push constant 4082
+neg
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 417
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 449
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 481
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 0
+return
+
+function Graphics.drawMarioCrouch 1
+push argument 0
+call Graphics.drawMarioSprite 1
+pop temp 0
+push constant 0
+return
+
+function Graphics.drawStandHead 1
+push constant 0
+return
 neg
 call Memory.poke 2
 pop temp 0
@@ -218,25 +943,8 @@ push constant 481
 add
 return
 function Graphics.eraseStandHead 1
-push constant 16384
-push argument 0
-add
-pop local 0
-push local 0
 push constant 0
-add
-push constant 0
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 32
-add
-push constant 0
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 64
-add
+return
 push constant 0
 call Memory.poke 2
 pop temp 0
@@ -601,356 +1309,17 @@ pop temp 0
 push constant 0
 return
 function Graphics.drawFeet1 1
-push constant 16384
-push argument 0
-add
-pop local 0
-push local 0
 push constant 0
-add
-push constant 64
-neg
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 32
-add
-push constant 15
-neg
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 64
-add
-push constant 7
-neg
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 96
-add
-push constant 1
-neg
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 128
-add
-push constant 1
-neg
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 160
-add
-push constant 1
-neg
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 192
-add
-push constant 1
-neg
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 224
-add
-push constant 385
-neg
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 256
-add
-push constant 386
-neg
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 288
-add
-push constant 30782
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 320
-add
-push constant 30780
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 352
-add
-push constant 30776
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 384
-add
-push constant 14392
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 416
-add
-push constant 12316
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 448
-add
-push constant 4066
-neg
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 480
-add
-push constant 4082
-neg
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 480
-add
 return
 function Graphics.drawFeet2 1
-push constant 16384
-push argument 0
-add
-pop local 0
-push local 0
-push constant 0
-add
-push constant 64
-neg
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 32
-add
-push constant 15
-neg
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 64
-add
-push constant 7
-neg
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 96
-add
-push constant 1
-neg
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 128
-add
-push constant 1
-neg
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 160
-add
-push constant 1
-neg
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 192
-add
-push constant 1
-neg
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 224
-add
-push constant 31871
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 256
-add
-push constant 15486
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 288
-add
-push constant 15420
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 320
-add
-push constant 6200
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 352
-add
-push constant 30776
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 384
-add
-push constant 3976
-neg
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 416
-add
-push constant 16160
-neg
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 448
-add
-push constant 448
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 480
-add
-push constant 384
-call Memory.poke 2
-pop temp 0
 push constant 0
 return
 function Graphics.eraseFeet 1
-push constant 16384
-push argument 0
-add
-pop local 0
-push local 0
-push constant 0
-add
-push constant 0
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 32
-add
-push constant 0
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 64
-add
-push constant 0
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 96
-add
-push constant 0
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 128
-add
-push constant 0
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 160
-add
-push constant 0
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 192
-add
-push constant 0
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 224
-add
-push constant 0
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 256
-add
-push constant 0
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 288
-add
-push constant 0
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 320
-add
-push constant 0
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 352
-add
-push constant 0
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 384
-add
-push constant 0
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 416
-add
-push constant 0
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 448
-add
-push constant 0
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 480
-add
-push constant 0
-call Memory.poke 2
-pop temp 0
 push constant 0
 return
 function Graphics.drawTail 1
-push constant 16384
-push argument 0
-add
-pop local 0
-push local 0
 push constant 0
-add
-push constant 896
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 32
-add
-push constant 3840
-call Memory.poke 2
-pop temp 0
-push local 0
-push constant 64
-add
+return
 push constant 7936
 call Memory.poke 2
 pop temp 0
@@ -1074,164 +1443,50 @@ pop temp 0
 push constant 0
 return
 function Graphics.drawStand 0
-push argument 0
-push constant 512
-sub
-push constant 1
-add
-call Graphics.drawStandHead 1
-pop temp 0
-push argument 0
-call Graphics.drawFeet1 1
-pop temp 0
-push argument 0
-push constant 1
-sub
-call Graphics.drawTail 1
-pop temp 0
 push constant 0
 return
 function Graphics.eraseStand 0
-push argument 0
-push constant 511
-sub
-call Graphics.eraseStandHead 1
-pop temp 0
-push argument 0
-call Graphics.eraseFeet 1
-pop temp 0
-push argument 0
-push constant 1
-sub
-call Graphics.eraseTail 1
-pop temp 0
 push constant 0
 return
-function Graphics.drawJump 4
-push argument 0
-push constant 512
-sub
-push constant 1
-add
-call Graphics.drawStandHead 1
+function Graphics.drawJump 1
+// locals: 0=oldLast
+// args: 0=location, 1=change_in_location (unused by this implementation)
+// Save previous last-drawn baseline
+push static 0
 pop local 0
+
+// Update last drawn baseline to the new location so drawMarioSprite
+// doesn't erase the new drawing prematurely.
 push argument 0
-call Graphics.drawFeet1 1
-pop local 1
+pop static 0
+
+// Draw Mario at the new baseline first
 push argument 0
-push constant 1
-sub
-call Graphics.drawTail 1
-pop local 2
-label WHILE_EXP0
-push argument 1
-push constant 0
-lt
-not
-if-goto WHILE_END0
-push argument 1
-push constant 1
-add
-pop argument 1
-push argument 1
-push constant 32
-call Math.multiply 2
-pop local 3
+call Graphics.drawMarioSprite 1
+pop temp 0
+
+// If there was a previous valid location and it's different, erase it now
 push local 0
-push local 3
-sub
 push constant 0
-call Memory.poke 2
-pop temp 0
-push local 1
-push local 3
-sub
-push constant 0
-call Memory.poke 2
-pop temp 0
-push local 2
-push local 3
-sub
-push constant 0
-call Memory.poke 2
-pop temp 0
-goto WHILE_EXP0
-label WHILE_END0
-push argument 1
-push constant 0
-gt
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+eq
+if-goto SKIP_ERASE_OLD
 push local 0
-push constant 16
-push constant 32
-call Math.multiply 2
-sub
-pop local 0
-push local 1
-push constant 30
-push constant 32
-call Math.multiply 2
-sub
-pop local 1
-push local 2
-push constant 10
-push constant 32
-call Math.multiply 2
-sub
-pop local 2
-label WHILE_EXP1
-push argument 1
-push constant 0
-gt
-not
-if-goto WHILE_END1
-push argument 1
-push constant 1
-sub
-pop argument 1
-push argument 1
-push constant 32
-call Math.multiply 2
-pop local 3
+push argument 0
+eq
+if-goto SKIP_ERASE_OLD
 push local 0
-push local 3
-sub
-push constant 0
-call Memory.poke 2
+call Graphics.eraseMarioSprite 1
 pop temp 0
-push local 1
-push local 3
-sub
-push constant 0
-call Memory.poke 2
+
+// Redraw new baseline in case erase overlapped newly drawn pixels
+push argument 0
+call Graphics.drawMarioSprite 1
 pop temp 0
-push local 2
-push local 3
-sub
-push constant 0
-call Memory.poke 2
-pop temp 0
-goto WHILE_EXP1
-label WHILE_END1
-label IF_FALSE0
+label SKIP_ERASE_OLD
+
 push constant 0
 return
 function Graphics.drawCrouch 0
-push argument 0
-push constant 1
-add
-call Graphics.drawCrouchHead 1
-pop temp 0
-push argument 0
-call Graphics.drawFeet1 1
-pop temp 0
-push argument 0
-push constant 1
-sub
-call Graphics.drawTail 1
-pop temp 0
 push constant 0
 return
 function Graphics.erasePtyr 1

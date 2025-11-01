@@ -415,3 +415,8 @@ push argument 0
 pop pointer 0
 push this 8
 return
+function Trex.immortal_remaining 0
+push argument 0
+pop pointer 0
+push this 9
+return
