@@ -14,7 +14,7 @@ call Trex.collision_box_tly 1
 pop this 4
 push this 4
 push constant 32
-add
+add 
 pop this 6
 call Pterodactyl.new 0
 pop this 7
